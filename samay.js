@@ -196,7 +196,7 @@ function _isAfter(refDate) {
 	if(refDate && refDate.samayInstance) {
 		refNativeDate = refDate.originalDate
 	}
-
+	console.log(date , '  ' , refDate)
 	return +date > +refNativeDate
 }
 
@@ -260,7 +260,10 @@ function SamayError(message) {
 }
 
 module.exports = {
-	samay : samay.bind({}),
+	samay : function() { 
+		// Provide fresh context everytime. Context isolation of all instances
+		return samay.apply({}, arguments); 
+	},
 	parseDate,
 	parseDateTime,
 	parseDateTime2,
