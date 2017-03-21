@@ -164,14 +164,6 @@ function _format(format) {
 		isPM = hour24 >=12
 
 	return (format || '')
-				.replace('ddd', _getDayName(day, { length : 3 }))
-				.replace('DD', _formatDate(date))
-				.replace('MMM', _getMonthName(month, { length : 3 }))
-				.replace('MM', _formatMonth(month))
-				.replace('yyyy', fullYear)
-				.replace('YYYY', fullYear)
-				.replace('yy', _prepandZero(year))
-				.replace('YY', _prepandZero(year))
 				.replace('mm', _prepandZero(minutes)) // Lower case depicts minutes
 				.replace('ss', _prepandZero(seconds))
 				.replace('hh', _prepandZero(hour12))  // 'hh' depicts 12 hour format
@@ -179,6 +171,15 @@ function _format(format) {
 				.replace('h' ,hour12)
 				.replace('H' ,hour24)
 				.replace('A', isPM ? 'PM' : 'AM')
+				.replace('ddd', _getDayName(day, { length : 3 }))
+				.replace('DD', _formatDate(date))
+				.replace('MMMM', _getMonthName(month))
+				.replace('MMM', _getMonthName(month, { length : 3 }))
+				.replace('MM', _formatMonth(month))
+				.replace('yyyy', fullYear)
+				.replace('YYYY', fullYear)
+				.replace('yy', _prepandZero(year))
+				.replace('YY', _prepandZero(year))				
 				.replace('Do', _ordinalSuffix(date)) // If st/nd/rd/th ordinal suffix is requested
 
 }
@@ -207,7 +208,6 @@ function _getDaysInMonth() {
 
 function _day(dayNumber) {
 	const day = dayNumber - this.inputDate.getDay()
-	console.log(_add.call(this, day, 'days').originalDate)
 	return _add.call(this, day, 'days')
 }
 
