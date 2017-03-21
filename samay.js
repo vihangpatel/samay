@@ -1,4 +1,4 @@
-function parseDate(strDate) {
+  function parseDate(strDate) {
 
 	const REGEXP_TO_EXTRACT_DATE = /(\d{4})(\d{2})(\d{2})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
@@ -13,7 +13,7 @@ function parseDate(strDate) {
 }
 
 // Function for format 20170317
-function parseDateTime(strDate) {
+  function parseDateTime(strDate) {
 
 	const REGEXP_TO_EXTRACT_DATE = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
@@ -29,7 +29,7 @@ function parseDateTime(strDate) {
 }
 
 // Function for format 17-03-2017 22:10:30
-function parseDateTime2(strDate) {
+  function parseDateTime2(strDate) {
 	const REGEXP_TO_EXTRACT_DATE = /(\d{2})-(\d{2})-(\d{4})\s(\d{2}):(\d{2}):(\d{2})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
 
@@ -49,21 +49,21 @@ function parseDateTime2(strDate) {
 * @param date2 reference date from which whether date1 is of past is determined
 * @return Boolean true/false based on the date calculation
 */
-function isPastDate(date1,date2) {
+  function isPastDate(date1,date2) {
 	const structuredDate1 = parseDate(date1),
 		structuredDate2 = date2 ? parseDate(date2) : new Date(currentDateTime)
 	return (new Date(structuredDate2).getTime()) > (new Date(structuredDate1).getTime())
 }
 
 
-function addDays(sourceDate, days) {
+  function addDays(sourceDate, days) {
 	const miliseconds = 24 * 60 * 60 * 1000 * (days || 0),
 		epochTime = new Date(sourceDate)
 	return new Date(+epochTime + miliseconds)
 }
 
 
-function getDayName(dateObj, options = {}) {
+  function getDayName(dateObj, options = {}) {
 	const inputDate = new Date(dateObj),
 		dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' , 'Saturday'][inputDate.getDay()] || ''
 	return options.short ? dayName.substr(0,3) : dayName
@@ -72,13 +72,13 @@ function getDayName(dateObj, options = {}) {
 function _subtract(value, type) {
 	const map = {
 		'days' : _subtractDays.bind(this),
-		'hours' : _subtractHours.bind(this)
+		'hour' : _subtractHours.bind(this)
 	}
 
-	return map[type](value);
+	return samay.call(this, map[type](value))
 }
 
-function _subtractDays(value, type) {
+function _subtractDays(days) {
 	const miliseconds = 24 * 60 * 60 * 1000 * (days || 0),
 		epochTime = +this.inputDate
 	return new Date(+epochTime - miliseconds)
@@ -93,10 +93,10 @@ function _subtractHours(hours) {
 function _add(value, type) {
 	const map = {
 		'days' : _addDays.bind(this),
-		'hours' : _addHours.bind(this)
+		'hour' : _addHours.bind(this)
 	}
 
-	return map[type](value);
+	return samay.call(this, map[type](value))
 }
 
 function _addHours(hours) {
@@ -135,6 +135,21 @@ function _prepandZero(value) {
 	return value < 9 ? `0${value}` : value
 }
 
+function _ordinalSuffix(i) {
+	const j = i % 10,
+		k = i % 100
+	if (j === 1 && k !== 11) {
+		return `${i}st`
+	}
+	if (j === 2 && k !== 12) {
+		return `${i}nd`
+	}
+	if (j === 3 && k !== 13) {
+		return `${i}rd`
+	}
+	return `${i}th`
+}
+
 function _format(format) {
 	const inputDate = this.inputDate,
 		date = inputDate.getDate(),
@@ -161,13 +176,42 @@ function _format(format) {
 				.replace('ss', _prepandZero(seconds))
 				.replace('hh', _prepandZero(hour12))  // 'hh' depicts 12 hour format
 				.replace('HH', _prepandZero(hour24))  // 'HH' stands for the 24 hours format
+				.replace('h' ,hour12)
+				.replace('H' ,hour24)
 				.replace('A', isPM ? 'PM' : 'AM')
+				.replace('Do', _ordinalSuffix(date)) // If st/nd/rd/th ordinal suffix is requested
 
 }
 
-function samay(inputDate, scanFormat) {
+function _isAfter(refDate) {
+	const date = this.inputDate
 
-	let parsedDate = undefined
+	let refNativeDate
+
+	if(refDate instanceof Date) {
+		refNativeDate = refDate
+	}
+
+	if(refDate && refDate.samayInstance) {
+		refNativeDate = refDate.originalDate
+	}
+
+	return +date > +refNativeDate
+}
+
+function _getDaysInMonth() {
+	const date = this.inputDate,
+		lastDate = new Date(date.getFullYear(), date.getMonth() + 1 , 0)
+	return lastDate.getDate()
+}
+
+function _day(dayNumber) {
+	const day = dayNumber - this.inputDate.getDay()
+	console.log(_add.call(this, day, 'days').originalDate)
+	return _add.call(this, day, 'days')
+}
+
+function samay(inputDate, scanFormat) {
 
 	const formats = samay.FORMATS,
 		fnCallMap = {
@@ -176,19 +220,30 @@ function samay(inputDate, scanFormat) {
 			[formats.YYYYMMDD] : parseDate
 		}
 
-	if(!fnCallMap[scanFormat]) {
-		throw new SamayError('INVALID INPUT FORMAT - Exception Occurred in constructor')
+	if(inputDate instanceof String) {
+		this.inputDate = new Date(inputDate)
+	} else if(inputDate instanceof Date){
+		this.inputDate = inputDate
+	} else if(inputDate && fnCallMap[scanFormat]) {
+		this.inputDate = new Date(fnCallMap[scanFormat](inputDate))
+	} else {
+		this.inputDate = new Date()
 	}
 
-	this.inputDate = new Date(fnCallMap[scanFormat](inputDate))
 
 	if(this.inputDate === samay.INVALID) {
 		throw new SamayError('INVALID DATE - Exception Occurred in constructor')
 	}
 
 	return {
+		samayInstance : true,
+		originalDate : this.inputDate,
 		format : _format.bind(this),
-		add : _add.bind(this)
+		add : _add.bind(this),
+		subtract : _subtract.bind(this),
+		isAfter : _isAfter.bind(this),
+		getDaysInMonth : _getDaysInMonth.bind(this),
+		day : _day.bind(this)
 	}
 }
 
@@ -205,5 +260,18 @@ function SamayError(message) {
 }
 
 module.exports = {
-	samay : samay.bind({})
-}
+	samay : samay.bind({}),
+	parseDate,
+	parseDateTime,
+	parseDateTime2,
+	isPastDate,
+	addDays,
+	getDayName
+}	
+
+
+
+
+
+
+
