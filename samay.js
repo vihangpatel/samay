@@ -43,6 +43,20 @@
 		}
 }
 
+function parseDateTime3(strDate) {
+	const REGEXP_TO_EXTRACT_DATE = /(\w{3}),\s(\d{2})\s(\w{3}),\s(\d{4})/g,
+		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
+
+		if(splitDate) {
+			const month = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(splitDate[3].toLowerCase()),
+				date = [splitDate[4], _prepandZero(month + 1),splitDate[2]].join('-'),
+				structuredDate = `${date}T00:00:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+				return structuredDate
+		} else {
+			return strDate
+		}
+}
+
 /**
 * isPastDate compares given dates
 * @param date1 date to be compared
@@ -217,17 +231,18 @@ function samay(inputDate, scanFormat) {
 		fnCallMap = {
 			[formats.DD_MM_YYYY_HH_mm_ss] : parseDateTime2,
 			[formats.YYYYMMDDHHmm] : parseDateTime,
-			[formats.YYYYMMDD] : parseDate
+			[formats.YYYYMMDD] : parseDate,
+			[formats.ddd_DD_MMM_YYYY] : parseDateTime3
 		}
 
-	if(inputDate instanceof String) {
-		this.inputDate = new Date(inputDate)
-	} else if(inputDate instanceof Date){
+	if(inputDate instanceof Date){
 		this.inputDate = inputDate
 	} else if(inputDate && fnCallMap[scanFormat]) {
 		this.inputDate = new Date(fnCallMap[scanFormat](inputDate))
-	} else {
-		this.inputDate = new Date()
+	} else if(inputDate && !fnCallMap[scanFormat]) {
+		this.inputDate = new Date(inputDate)
+	} else if (!inputDate) {
+		this.inputDate = new Date
 	}
 
 
@@ -251,7 +266,8 @@ samay.INVALID = 'Invalid Date'
 samay.FORMATS = {
 	'DD_MM_YYYY_HH_mm_ss' : 'DD-MM-YYYY HH:mm:ss',
 	'YYYYMMDDHHmm' : 'YYYYMMDDHHmm',
-	'YYYYMMDD' : 'YYYYMMDD'
+	'YYYYMMDD' : 'YYYYMMDD',
+	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY'
 }
 
 function SamayError(message) {
