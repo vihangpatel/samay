@@ -249,7 +249,7 @@ function samay(inputDate, scanFormat) {
 
 samay.INVALID = 'Invalid Date'
 samay.FORMATS = {
-	'DD_MM_YYYY_HH_mm_ss' : 'DD_MM_YYYY_HH_mm_ss',
+	'DD_MM_YYYY_HH_mm_ss' : 'DD-MM-YYYY HH-mm-ss',
 	'YYYYMMDDHHmm' : 'YYYYMMDDHHmm',
 	'YYYYMMDD' : 'YYYYMMDD'
 }
