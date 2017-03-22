@@ -34,7 +34,7 @@
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
 
 		if(splitDate) {
-			const date = [splitDate[1],splitDate[2],splitDate[3]].join('-'),
+			const date = [splitDate[3],splitDate[2],splitDate[1]].join('-'),
 				time = [splitDate[4],splitDate[5], splitDate[6]].join(':'),
 				structuredDate = `${date}T${time}+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
 				return structuredDate
@@ -249,7 +249,7 @@ function samay(inputDate, scanFormat) {
 
 samay.INVALID = 'Invalid Date'
 samay.FORMATS = {
-	'DD_MM_YYYY_HH_mm_ss' : 'DD-MM-YYYY HH-mm-ss',
+	'DD_MM_YYYY_HH_mm_ss' : 'DD-MM-YYYY HH:mm:ss',
 	'YYYYMMDDHHmm' : 'YYYYMMDDHHmm',
 	'YYYYMMDD' : 'YYYYMMDD'
 }
