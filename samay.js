@@ -57,6 +57,19 @@ function parseDateTime3(strDate) {
 		}
 }
 
+function parseDateTime4(strDate) {
+	const REGEXP_TO_EXTRACT_DATE = /(\d{2})\/(\d{2})\/(\d{4})/g,
+		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
+		console.log(splitDate);
+		if(splitDate) {
+			const date = [splitDate[3],splitDate[2],splitDate[1]].join('-'),
+				structuredDate = `${date}T00:00:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+				return structuredDate
+		} else {
+			return strDate
+		}
+}
+
 /**
 * isPastDate compares given dates
 * @param date1 date to be compared
@@ -232,7 +245,8 @@ function samay(inputDate, scanFormat) {
 			[formats.DD_MM_YYYY_HH_mm_ss] : parseDateTime2,
 			[formats.YYYYMMDDHHmm] : parseDateTime,
 			[formats.YYYYMMDD] : parseDate,
-			[formats.ddd_DD_MMM_YYYY] : parseDateTime3
+			[formats.ddd_DD_MMM_YYYY] : parseDateTime3,
+			[formats.DD_MM_YYYY] : parseDateTime4
 		}
 
 	if(inputDate instanceof Date){
@@ -267,7 +281,8 @@ samay.FORMATS = {
 	'DD_MM_YYYY_HH_mm_ss' : 'DD-MM-YYYY HH:mm:ss',
 	'YYYYMMDDHHmm' : 'YYYYMMDDHHmm',
 	'YYYYMMDD' : 'YYYYMMDD',
-	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY'
+	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY',
+	'DD_MM_YYYY' : 'DD/MM/YYYY'
 }
 
 function SamayError(message) {
