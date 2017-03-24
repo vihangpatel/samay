@@ -146,7 +146,7 @@ function _formatDate(date) {
 }
 
 function _prepandZero(value) {
-	return value < 9 ? `0${value}` : value
+	return value < 10 ? `0${value}` : value
 }
 
 function _ordinalSuffix(i) {
