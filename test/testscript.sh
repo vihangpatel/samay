@@ -6,7 +6,7 @@ reset=`tput sgr0`
 line="===========================================\n"
 
 
-echo "${yellow} $line Starting Test cases for samay.js ${reset}"
+echo "${yellow}$line Starting Test cases for samay.js ${reset}"
 jasmine spec.js
 
 returnVal=$?
@@ -18,6 +18,6 @@ else
 	echo "${red}Test cases are failing. Commit is broken"
 fi
 
-echo "${reset}"
+echo "$line ${reset}"
 
 exit $?
