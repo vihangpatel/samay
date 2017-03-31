@@ -7,7 +7,7 @@ line="===========================================\n"
 
 
 echo "${yellow}$line Starting Test cases for samay.js ${reset}"
-jasmine spec.js
+jasmine "test/spec.js"
 
 returnVal=$?
 
