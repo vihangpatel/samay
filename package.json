@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine test/spec.js"
+    "test": "sh test/testscript.sh"
   },
   "pre-commit" : ["test"],
   "author": "Vihang Patel",
