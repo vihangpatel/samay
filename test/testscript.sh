@@ -4,7 +4,7 @@ yellow=`tput setaf 3`
 reset=`tput sgr0`
 
 
-echo "${green}Starting Test cases for samay.js ${reset}"
+echo "${yellow}Starting Test cases for samay.js ${reset}"
 jasmine spec.js
 
 returnVal=$?
