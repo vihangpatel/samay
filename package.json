@@ -6,7 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "pre-commit" : ["test"],
   "author": "Vihang Patel",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^2.5.3",
+    "pre-commit": "^1.2.2"
+  }
 }
