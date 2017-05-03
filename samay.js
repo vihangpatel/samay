@@ -70,6 +70,21 @@ function parseDateTime4(strDate) {
 		}
 }
 
+// Parse format MMM DD, YYYY
+function parseDateTime5(strDate) {
+	const REGEXP_TO_EXTRACT_DATE = /(\w{3})\s(\w{2}),\s(\d{4})/g,
+		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
+		console.log(splitDate);
+		if(splitDate) {
+			const month = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(splitDate[1].toLowerCase()),
+				date = [splitDate[3], _prepandZero(month + 1),splitDate[2]].join('-'),
+				structuredDate = `${date}T00:00:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+				return structuredDate
+		} else {
+			return strDate
+		}
+}
+
 /**
 * isPastDate compares given dates
 * @param date1 date to be compared
@@ -246,7 +261,8 @@ function samay(inputDate, scanFormat) {
 			[formats.YYYYMMDDHHmm] : parseDateTime,
 			[formats.YYYYMMDD] : parseDate,
 			[formats.ddd_DD_MMM_YYYY] : parseDateTime3,
-			[formats.DD_MM_YYYY] : parseDateTime4
+			[formats.DD_MM_YYYY] : parseDateTime4,
+			[formats.MMM_DD_YYYY] : parseDateTime5
 		}
 
 	if(inputDate instanceof Date){
@@ -282,7 +298,8 @@ samay.FORMATS = {
 	'YYYYMMDDHHmm' : 'YYYYMMDDHHmm',
 	'YYYYMMDD' : 'YYYYMMDD',
 	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY',
-	'DD_MM_YYYY' : 'DD/MM/YYYY'
+	'DD_MM_YYYY' : 'DD/MM/YYYY',
+	'MMM_DD_YYYY' : 'MMM DD, YYYY'
 }
 
 function SamayError(message) {

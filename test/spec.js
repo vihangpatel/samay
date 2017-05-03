@@ -37,4 +37,12 @@ describe('samay.js test suite', function(){
 	it('format test YYYYMMDD against format MM/DD/YYYY HH:mm', function() {
 		expect(samay('201712311545', 'YYYYMMDDHHmm').add(2,'days').subtract(2,'hour').format('MM/DD/YYYY HH:mm')).toBe('01/02/2018 13:45')
 	});
+
+	it('1st jan 2017', function() {
+		expect(samay('201701011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('01/01/2017 13:45 Sun')
+	});
+
+	it('1st feb 2017', function() {
+		expect(samay('201702011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('02/01/2017 13:45 Wed')
+	});
 });

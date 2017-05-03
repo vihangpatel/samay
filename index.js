@@ -1,3 +1,3 @@
-var samay = require('./samay');
+var samay = require('./samay').samay;
 // Export from here
 module.exports = samay;
