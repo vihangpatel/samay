@@ -60,7 +60,6 @@ function parseDateTime3(strDate) {
 function parseDateTime4(strDate) {
 	const REGEXP_TO_EXTRACT_DATE = /(\d{2})\/(\d{2})\/(\d{4})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
-		console.log(splitDate);
 		if(splitDate) {
 			const date = [splitDate[3],splitDate[2],splitDate[1]].join('-'),
 				structuredDate = `${date}T00:00:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
@@ -74,7 +73,6 @@ function parseDateTime4(strDate) {
 function parseDateTime5(strDate) {
 	const REGEXP_TO_EXTRACT_DATE = /(\w{3})\s(\w{2}),\s(\d{4})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
-		console.log(splitDate);
 		if(splitDate) {
 			const month = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(splitDate[1].toLowerCase()),
 				date = [splitDate[3], _prepandZero(month + 1),splitDate[2]].join('-'),
@@ -238,7 +236,6 @@ function _isAfter(refDate) {
 	if(refDate && refDate.samayInstance) {
 		refNativeDate = refDate.originalDate
 	}
-	console.log(date , '  ' , refDate)
 	return +date > +refNativeDate
 }
 
