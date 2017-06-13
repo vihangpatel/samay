@@ -45,4 +45,8 @@ describe('samay.js test suite', function(){
 	it('1st feb 2017', function() {
 		expect(samay('201702011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('02/01/2017 13:45 Wed')
 	});
+
+	it('Add seconds', function() {
+		expect(samay('201702011345', 'YYYYMMDDHHmm').add(600, 'seconds').format('HHmm')).toBe('1355')
+	});
 });

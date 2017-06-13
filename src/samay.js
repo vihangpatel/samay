@@ -112,7 +112,8 @@ function parseDateTime5(strDate) {
 function _subtract(value, type) {
 	const map = {
 		'days' : _subtractDays.bind(this),
-		'hour' : _subtractHours.bind(this)
+		'hour' : _subtractHours.bind(this),
+		'seconds': _addSeconds.bind(this)
 	}
 
 	return samay.call(this, map[type](value))
@@ -148,6 +149,13 @@ function _addHours(hours) {
 function _addDays(days) {
 	const miliseconds = 24 * 60 * 60 * 1000 * (days || 0),
 		epochTime = +this.inputDate
+	return new Date(+epochTime + miliseconds)
+}
+
+function _addSeconds(seconds) {
+	var miliseconds = 1000 * seconds,
+		epochTime = +this.inputDate;
+
 	return new Date(+epochTime + miliseconds)
 }
 
