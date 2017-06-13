@@ -137,7 +137,8 @@ function _subtractHours(hours) {
 function _add(value, type) {
 	var map = {
 		'days': _addDays.bind(this),
-		'hour': _addHours.bind(this)
+		'hour': _addHours.bind(this),
+		'seconds': _addSeconds.bind(this)
 	};
 
 	return _samay.call(this, map[type](value));
@@ -153,6 +154,13 @@ function _addDays(days) {
 	var miliseconds = 24 * 60 * 60 * 1000 * (days || 0),
 	    epochTime = +this.inputDate;
 	return new Date(+epochTime + miliseconds);
+}
+
+function _addSeconds(seconds) {
+	var miliseconds = 1000 * seconds,
+		epochTime = +this.inputDate;
+
+	return new Date(+epochTime + miliseconds)
 }
 
 function _getDayName(day) {
