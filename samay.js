@@ -116,7 +116,8 @@ function getDayName(dateObj) {
 function _subtract(value, type) {
 	var map = {
 		'days': _subtractDays.bind(this),
-		'hour': _subtractHours.bind(this)
+		'hour': _subtractHours.bind(this),
+		'seconds': _addSeconds.bind(this)
 	};
 
 	return _samay.call(this, map[type](value));
@@ -158,9 +159,9 @@ function _addDays(days) {
 
 function _addSeconds(seconds) {
 	var miliseconds = 1000 * seconds,
-		epochTime = +this.inputDate;
+	    epochTime = +this.inputDate;
 
-	return new Date(+epochTime + miliseconds)
+	return new Date(+epochTime + miliseconds);
 }
 
 function _getDayName(day) {

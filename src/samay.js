@@ -134,7 +134,8 @@ function _subtractHours(hours) {
 function _add(value, type) {
 	const map = {
 		'days' : _addDays.bind(this),
-		'hour' : _addHours.bind(this)
+		'hour' : _addHours.bind(this),
+		'seconds': _addSeconds.bind(this)
 	}
 
 	return samay.call(this, map[type](value))
