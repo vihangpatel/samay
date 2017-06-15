@@ -1,4 +1,24 @@
-  function parseDate(strDate) {
+  /* global window */
+
+function calcDate(structuredDate) {
+	var splitDate = structuredDate.split('T'),
+		datePart = splitDate[0].split('-'),
+		timePart = splitDate[1].replace('+05:30', '').split(':');
+
+	var date = new Date;
+	
+	date.setDate(datePart[2]);
+	date.setMonth(+datePart[1] - 1);
+	date.setFullYear(datePart[0]);
+
+	date.setHours(timePart[0]);
+	date.setMinutes(timePart[1]);
+	date.setSeconds(timePart[2]);
+
+	return date;
+}
+
+function parseDate(strDate) {
 
 	const REGEXP_TO_EXTRACT_DATE = /(\d{4})(\d{2})(\d{2})/g,
 		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
@@ -272,12 +292,21 @@ function samay(inputDate, scanFormat) {
 		}
 
 	if(inputDate instanceof Date){
+
 		this.inputDate = inputDate
+
 	} else if(inputDate && fnCallMap[scanFormat]) {
-		this.inputDate = new Date(fnCallMap[scanFormat](inputDate))
+		
+		const structuredDate = fnCallMap[scanFormat](inputDate),
+			nativeDate = calcDate(structuredDate);
+		this.inputDate = new Date(nativeDate);
+
 	} else if(inputDate && !fnCallMap[scanFormat]) {
+		
 		this.inputDate = new Date(inputDate)
+
 	} else if (!inputDate) {
+		
 		this.inputDate = new Date
 	}
 
@@ -311,9 +340,16 @@ samay.FORMATS = {
 function SamayError(message) {
 	this.message = message
 	this.name = 'Samay Exception'
-}
+}	
 
-module.exports = {
+/**
+*
+*  Export samay at client side
+*/
+if(window) {
+	window.samay = samay.samay
+} else {
+	module.exports = {
 	samay : function() { 
 		// Provide fresh context everytime. Context isolation of all instances
 		return samay.apply({}, arguments); 
@@ -324,8 +360,8 @@ module.exports = {
 	isPastDate,
 	addDays,
 	getDayName
-}	
-
+}
+}
 
 
 
