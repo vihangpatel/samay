@@ -342,14 +342,7 @@ function SamayError(message) {
 	this.name = 'Samay Exception'
 }	
 
-/**
-*
-*  Export samay at client side
-*/
-if(window) {
-	window.samay = samay.samay
-} else {
-	module.exports = {
+module.exports = {
 	samay : function() { 
 		// Provide fresh context everytime. Context isolation of all instances
 		return samay.apply({}, arguments); 
@@ -360,7 +353,6 @@ if(window) {
 	isPastDate,
 	addDays,
 	getDayName
-}
 }
 
 
