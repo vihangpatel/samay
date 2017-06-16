@@ -48,7 +48,7 @@ function parseDate(strDate) {
 		if(splitDate) {
 			const date = [splitDate[1],splitDate[2],splitDate[3]].join('-'),
 				time = [splitDate[4],splitDate[5]].join(':'),
-				structuredDate = `${date}T${time}+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+				structuredDate = `${date}T${time}:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
 				return structuredDate
 		} else {
 			return strDate
