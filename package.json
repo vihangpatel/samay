@@ -17,6 +17,19 @@
     "babel-plugin-transform-object-rest-spread": "6.20.2",
     "babel-register": "6.9.0"
   },
+  "keywords": [
+      "compare",
+      "date",
+      "format",
+      "hour",
+      "minute",
+      "moment",
+      "parse",
+      "samay",
+      "second",
+      "time",
+      "validate"
+  ],
   "devDependencies": {
     "jasmine": "2.5.3",
     "pre-commit": "1.2.2",
