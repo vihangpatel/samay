@@ -18,14 +18,17 @@
     "babel-register": "6.9.0"
   },
   "keywords": [
-      "samay",
-      "time",
+      "compare",
+      "date",
+      "format",
+      "hour",
+      "minute",
       "moment",
       "parse",
-      "format",
-      "date",
-      "validate",
-      "ender"
+      "samay",
+      "second",
+      "time",
+      "validate"
   ],
   "devDependencies": {
     "jasmine": "2.5.3",
