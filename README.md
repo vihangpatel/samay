@@ -25,4 +25,4 @@ A lite and light verison of moment
 
 #### Compare functions
 
-`isPastDate(date1,date2) - compares given 2 dates. (compares whether the date is past date from date2)`
+`isPastDate(date1,date2) - compares given 2 dates. (compares whether the date1 is past date from date2)`
