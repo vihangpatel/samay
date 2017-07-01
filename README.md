@@ -18,5 +18,11 @@ A lite and light verison of moment
 `parseDateTime2() - parse Date time (Function for format 17-03-2017 22:10:30)`
 
 `parseDateTime3() - parse Date time`
+
 `parseDateTime4() - parse Date time`
+
 `parseDateTime5() - parse Date time`
+
+#### Compare functions
+
+`isPastDate(date1,date2) - compares given 2 dates. (compares whether the date is past date from date2)`
