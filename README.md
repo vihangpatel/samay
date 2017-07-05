@@ -1,6 +1,5 @@
 
 # ![alt samay size](samay.png){:width="240px"}
-[logo]: samay.png
 A lite version of moment
 
 [![dependencies Status](https://david-dm.org/vihangpatel/samay/status.svg)](https://david-dm.org/vihangpatel/samay)
