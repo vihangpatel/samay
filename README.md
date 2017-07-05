@@ -1,5 +1,5 @@
 
-# <img alt="samay" src="https://github.com/favicon.ico" width="240px">
+# <img alt="samay" src="samay.js" width="240px">
 A lite version of moment
 
 [![dependencies Status](https://david-dm.org/vihangpatel/samay/status.svg)](https://david-dm.org/vihangpatel/samay)
