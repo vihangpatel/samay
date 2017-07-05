@@ -1,5 +1,5 @@
 
-# ![alt samay][logo]
+# ![alt samay][logo]{:width="240px"}
 [logo]: samay.png
 A lite version of moment
 
