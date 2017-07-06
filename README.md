@@ -16,6 +16,10 @@ A lite version of moment
 
 `parseDateTime(strDate) - parses Date time (Function for format 20170317)`
 
+`addDays(sourceDate, days) -  Adds number of days from the source date and return the date adding x days`
+
+`getDayName(dateObj, options = {}) - Returns day name eg Sunday', 'Monday' If short is passed as an option Return Tues else Tuesday`
+
 
 #### Compare functions
 
