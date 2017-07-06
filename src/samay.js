@@ -25,6 +25,39 @@ function calcDate(structuredDate) {
 	}
 }
 
+/*
+  Function returns current dateTimeObject in the following format
+  
+  {
+  	date:"07",
+	hour:"00",
+	minutes:"03",
+	month:"07",
+	seconds:"07",
+	year:2017	
+  }
+  
+*/
+
+function getCurrentDateTimeObject() {
+	const DayObject = new Date(),
+		Day = DayObject.getDate(),
+		Month = DayObject.getMonth()+1,
+		Hour = DayObject.getHours(),
+		Minutes = DayObject.getMinutes(),
+		Seconds = DayObject.getSeconds()
+
+
+	return {
+		date: (Day.toString().length === 1) ? `0${Day}`: Day,
+		month: (Month.toString().length === 1) ? `0${Month}`: Month,
+		year: DayObject.getFullYear(),
+		hour: (Hour.toString().length === 1)? `0${Hour}`: Hour,
+		minutes: (Minutes.toString().length === 1)? `0${Minutes}`: Minutes,
+		seconds: (Seconds.toString().length === 1)? `0${Seconds}`: Seconds
+	}
+}
+
 function parseDate(strDate) {
 
 	const REGEXP_TO_EXTRACT_DATE = /(\d{4})(\d{2})(\d{2})/g,
@@ -359,6 +392,7 @@ module.exports = {
 	parseDateTime2,
 	isPastDate,
 	addDays,
+	getCurrentDateTimeObject,
 	getDayName
 }
 
