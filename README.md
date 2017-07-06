@@ -1,6 +1,5 @@
 
-# ![alt samay][logo]
-[logo]: samay.png
+# <img alt="samay" src="samay.png" width="240px">
 A lite version of moment
 
 [![dependencies Status](https://david-dm.org/vihangpatel/samay/status.svg)](https://david-dm.org/vihangpatel/samay)
