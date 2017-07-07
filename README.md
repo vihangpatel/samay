@@ -20,6 +20,11 @@ A lite version of moment
 
 `getDayName(dateObj, options = {}) - Returns day name eg Sunday', 'Monday' If short is passed as an option Return Tues else Tuesday`
 
+#### Add & Subtract functions
+
+`_subtract(value, type)` - Return samay instance according to the value and type passed
+
+`_add(value, type)` - Return samay instance according to the value and type passed`
 
 #### Compare functions
 
