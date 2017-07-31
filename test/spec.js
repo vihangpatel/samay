@@ -49,4 +49,9 @@ describe('samay.js test suite', function(){
 	it('Add seconds', function() {
 		expect(samay('201702011345', 'YYYYMMDDHHmm').add(600, 'seconds').format('HHmm')).toBe('1355')
 	});
+
+	it('format test YYYYMMDD against format YYYY-MM-DD HH:mm:ss', function() {
+		expect(samay('2017-07-31 15:31:08', 'YYYY-MM-DD HH:mm:ss').format('MM/DD/YYYY HH:mm')).toBe('07/31/2017 15:31')
+	});
+
 });
