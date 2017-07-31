@@ -309,7 +309,8 @@ function samay(inputDate, scanFormat) {
 			[formats.YYYYMMDD] : parseDate,
 			[formats.ddd_DD_MMM_YYYY] : parseDateTime3,
 			[formats.DD_MM_YYYY] : parseDateTime4,
-			[formats.MMM_DD_YYYY] : parseDateTime5
+			[formats.MMM_DD_YYYY] : parseDateTime5,
+			[formats.YYYY_MM_DD_HH_mm_ss] : parseDateTime6
 		}
 
 	if(inputDate instanceof Date){
@@ -355,7 +356,8 @@ samay.FORMATS = {
 	'YYYYMMDD' : 'YYYYMMDD',
 	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY',
 	'DD_MM_YYYY' : 'DD/MM/YYYY',
-	'MMM_DD_YYYY' : 'MMM DD, YYYY'
+	'MMM_DD_YYYY' : 'MMM DD, YYYY',
+	'YYYY_MM_DD_HH_mm_ss' : 'YYYY-MM-DD HH:mm:ss'
 }
 
 function SamayError(message) {
