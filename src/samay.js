@@ -17,8 +17,8 @@ function calcDate(structuredDate) {
 		date.setMinutes(timePart[1]);
 		date.setSeconds(timePart[2]);
 
-		return date;	
-	} 
+		return date;
+	}
 	catch(e) {
 
 		return new Date(structuredDate)
@@ -104,6 +104,20 @@ function parseDateTime5(strDate) {
 			const month = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(splitDate[1].toLowerCase()),
 				date = [splitDate[3], _prepandZero(month + 1),splitDate[2]].join('-'),
 				structuredDate = `${date}T00:00:00+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+				return structuredDate
+		} else {
+			return strDate
+		}
+}
+
+function parseDateTime6(strDate) {
+	const REGEXP_TO_EXTRACT_DATE = /(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})/g,
+		splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate)
+
+		if(splitDate) {
+			const date = [splitDate[1],splitDate[2],splitDate[3]].join('-'),
+				time = [splitDate[4],splitDate[5], splitDate[6]].join(':'),
+				structuredDate = `${date}T${time}+05:30` // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
 				return structuredDate
 		} else {
 			return strDate
@@ -255,7 +269,7 @@ function _format(format) {
 				.replace('yyyy', fullYear)
 				.replace('YYYY', fullYear)
 				.replace('yy', _prepandZero(year))
-				.replace('YY', _prepandZero(year))				
+				.replace('YY', _prepandZero(year))
 				.replace('Do', _ordinalSuffix(date)) // If st/nd/rd/th ordinal suffix is requested
 
 }
@@ -295,7 +309,8 @@ function samay(inputDate, scanFormat) {
 			[formats.YYYYMMDD] : parseDate,
 			[formats.ddd_DD_MMM_YYYY] : parseDateTime3,
 			[formats.DD_MM_YYYY] : parseDateTime4,
-			[formats.MMM_DD_YYYY] : parseDateTime5
+			[formats.MMM_DD_YYYY] : parseDateTime5,
+			[formats.YYYY_MM_DD_HH_mm_ss] : parseDateTime6
 		}
 
 	if(inputDate instanceof Date){
@@ -303,17 +318,17 @@ function samay(inputDate, scanFormat) {
 		this.inputDate = inputDate
 
 	} else if(inputDate && fnCallMap[scanFormat]) {
-		
+
 		const structuredDate = fnCallMap[scanFormat](inputDate),
 			nativeDate = calcDate(structuredDate);
 		this.inputDate = new Date(nativeDate);
 
 	} else if(inputDate && !fnCallMap[scanFormat]) {
-		
+
 		this.inputDate = new Date(inputDate)
 
 	} else if (!inputDate) {
-		
+
 		this.inputDate = new Date
 	}
 
@@ -341,18 +356,19 @@ samay.FORMATS = {
 	'YYYYMMDD' : 'YYYYMMDD',
 	'ddd_DD_MMM_YYYY' : 'ddd, DD MMM, YYYY',
 	'DD_MM_YYYY' : 'DD/MM/YYYY',
-	'MMM_DD_YYYY' : 'MMM DD, YYYY'
+	'MMM_DD_YYYY' : 'MMM DD, YYYY',
+	'YYYY_MM_DD_HH_mm_ss' : 'YYYY-MM-DD HH:mm:ss'
 }
 
 function SamayError(message) {
 	this.message = message
 	this.name = 'Samay Exception'
-}	
+}
 
 module.exports = {
-	samay : function() { 
+	samay : function() {
 		// Provide fresh context everytime. Context isolation of all instances
-		return samay.apply({}, arguments); 
+		return samay.apply({}, arguments);
 	},
 	parseDate,
 	parseDateTime,
@@ -361,9 +377,3 @@ module.exports = {
 	addDays,
 	getDayName
 }
-
-
-
-
-
-
