@@ -248,7 +248,7 @@ function _format(format) {
 		fullYear = inputDate.getFullYear(),
 		year = fullYear % 100,
 		hour24 = inputDate.getHours(),
-		hour12 = hour24 > 12 ? hour24 % 12 : hour24,
+		hour12 = hour24 % 12 + (hour24 / 12 == 0 || hour24 / 12 == 1 ? 12 : 0),
 		minutes = inputDate.getMinutes(),
 		seconds = inputDate.getSeconds(),
 		isPM = hour24 >=12

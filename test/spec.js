@@ -54,4 +54,12 @@ describe('samay.js test suite', function(){
 		expect(samay('2017-07-31 15:31:08', 'YYYY-MM-DD HH:mm:ss').format('MM/DD/YYYY HH:mm')).toBe('07/31/2017 15:31')
 	});
 
+	it('format test YYYYMMDDHHmm against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('201810150000', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('10/15/2018 12:00 AM')
+	});
+
+	it('format test YYYYMMDDHHmm against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('201810151315', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('10/15/2018 1:15 PM')
+	});
+
 });
