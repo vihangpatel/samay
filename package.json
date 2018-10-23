@@ -1,6 +1,6 @@
 {
   "name": "bmssamay",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,9 @@
     "compile": "babel src --sourceRoot=src --out-dir .",
     "postinstall": "npm run compile"
   },
-  "pre-commit" : ["test"],
+  "pre-commit": [
+    "test"
+  ],
   "author": "Vihang Patel",
   "license": "ISC",
   "dependencies": {
@@ -18,17 +20,17 @@
     "babel-register": "6.9.0"
   },
   "keywords": [
-      "compare",
-      "date",
-      "format",
-      "hour",
-      "minute",
-      "moment",
-      "parse",
-      "samay",
-      "second",
-      "time",
-      "validate"
+    "compare",
+    "date",
+    "format",
+    "hour",
+    "minute",
+    "moment",
+    "parse",
+    "samay",
+    "second",
+    "time",
+    "validate"
   ],
   "devDependencies": {
     "jasmine": "2.5.3",

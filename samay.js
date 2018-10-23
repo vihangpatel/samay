@@ -2,6 +2,32 @@
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/* global window */
+
+function calcDate(structuredDate) {
+
+	try {
+		var splitDate = structuredDate.split('T'),
+		    datePart = splitDate[0].split('-'),
+		    timePart = splitDate[1].replace('+05:30', '').split(':');
+
+		var date = new Date();
+
+		date.setDate(datePart[2]);
+		date.setMonth(+datePart[1] - 1);
+		date.setFullYear(datePart[0]);
+
+		date.setHours(timePart[0]);
+		date.setMinutes(timePart[1]);
+		date.setSeconds(timePart[2]);
+
+		return date;
+	} catch (e) {
+
+		return new Date(structuredDate);
+	}
+}
+
 function parseDate(strDate) {
 
 	var REGEXP_TO_EXTRACT_DATE = /(\d{4})(\d{2})(\d{2})/g,
@@ -25,7 +51,7 @@ function parseDateTime(strDate) {
 	if (splitDate) {
 		var date = [splitDate[1], splitDate[2], splitDate[3]].join('-'),
 		    time = [splitDate[4], splitDate[5]].join(':'),
-		    structuredDate = date + 'T' + time + '+05:30'; // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+		    structuredDate = date + 'T' + time + ':00+05:30'; // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
 		return structuredDate;
 	} else {
 		return strDate;
@@ -81,6 +107,20 @@ function parseDateTime5(strDate) {
 		var month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].indexOf(splitDate[1].toLowerCase()),
 		    date = [splitDate[3], _prepandZero(month + 1), splitDate[2]].join('-'),
 		    structuredDate = date + 'T00:00:00+05:30'; // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
+		return structuredDate;
+	} else {
+		return strDate;
+	}
+}
+
+function parseDateTime6(strDate) {
+	var REGEXP_TO_EXTRACT_DATE = /(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})/g,
+	    splitDate = REGEXP_TO_EXTRACT_DATE.exec(strDate);
+
+	if (splitDate) {
+		var date = [splitDate[1], splitDate[2], splitDate[3]].join('-'),
+		    time = [splitDate[4], splitDate[5], splitDate[6]].join(':'),
+		    structuredDate = date + 'T' + time + '+05:30'; // iOS needs format 2020-12-30T23:30:10+05:30 , default parses into GMT time, so need +05:30 for IST conversion
 		return structuredDate;
 	} else {
 		return strDate;
@@ -215,7 +255,7 @@ function _format(format) {
 	fullYear = inputDate.getFullYear(),
 	    year = fullYear % 100,
 	    hour24 = inputDate.getHours(),
-	    hour12 = hour24 > 12 ? hour24 % 12 : hour24,
+	    hour12 = hour24 % 12 + (hour24 / 12 === 0 || hour24 / 12 === 1 ? 12 : 0),
 	    minutes = inputDate.getMinutes(),
 	    seconds = inputDate.getSeconds(),
 	    isPM = hour24 >= 12;
@@ -256,15 +296,21 @@ function _samay(inputDate, scanFormat) {
 	var _fnCallMap;
 
 	var formats = _samay.FORMATS,
-	    fnCallMap = (_fnCallMap = {}, _defineProperty(_fnCallMap, formats.DD_MM_YYYY_HH_mm_ss, parseDateTime2), _defineProperty(_fnCallMap, formats.YYYYMMDDHHmm, parseDateTime), _defineProperty(_fnCallMap, formats.YYYYMMDD, parseDate), _defineProperty(_fnCallMap, formats.ddd_DD_MMM_YYYY, parseDateTime3), _defineProperty(_fnCallMap, formats.DD_MM_YYYY, parseDateTime4), _defineProperty(_fnCallMap, formats.MMM_DD_YYYY, parseDateTime5), _fnCallMap);
+	    fnCallMap = (_fnCallMap = {}, _defineProperty(_fnCallMap, formats.DD_MM_YYYY_HH_mm_ss, parseDateTime2), _defineProperty(_fnCallMap, formats.YYYYMMDDHHmm, parseDateTime), _defineProperty(_fnCallMap, formats.YYYYMMDD, parseDate), _defineProperty(_fnCallMap, formats.ddd_DD_MMM_YYYY, parseDateTime3), _defineProperty(_fnCallMap, formats.DD_MM_YYYY, parseDateTime4), _defineProperty(_fnCallMap, formats.MMM_DD_YYYY, parseDateTime5), _defineProperty(_fnCallMap, formats.YYYY_MM_DD_HH_mm_ss, parseDateTime6), _fnCallMap);
 
 	if (inputDate instanceof Date) {
+
 		this.inputDate = inputDate;
 	} else if (inputDate && fnCallMap[scanFormat]) {
-		this.inputDate = new Date(fnCallMap[scanFormat](inputDate));
+
+		var structuredDate = fnCallMap[scanFormat](inputDate),
+		    nativeDate = calcDate(structuredDate);
+		this.inputDate = new Date(nativeDate);
 	} else if (inputDate && !fnCallMap[scanFormat]) {
+
 		this.inputDate = new Date(inputDate);
 	} else if (!inputDate) {
+
 		this.inputDate = new Date();
 	}
 
@@ -291,7 +337,8 @@ _samay.FORMATS = {
 	'YYYYMMDD': 'YYYYMMDD',
 	'ddd_DD_MMM_YYYY': 'ddd, DD MMM, YYYY',
 	'DD_MM_YYYY': 'DD/MM/YYYY',
-	'MMM_DD_YYYY': 'MMM DD, YYYY'
+	'MMM_DD_YYYY': 'MMM DD, YYYY',
+	'YYYY_MM_DD_HH_mm_ss': 'YYYY-MM-DD HH:mm:ss'
 };
 
 function SamayError(message) {
