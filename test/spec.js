@@ -7,7 +7,8 @@ describe('samay.js test suite', function(){
 	});
 
 	it('constructor with current date object timing', function() {
-		expect(+samay(new Date).originalDate === +(new Date)).toBe(true)
+		var date = new Date
+		expect(+samay(date).originalDate === +(date)).toBe(true)
 	});
 
 	it('format test YYYYMMDD against format MM/DD/YYYY HH:mm', function() {
