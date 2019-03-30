@@ -13,9 +13,9 @@ function calcDate(structuredDate) {
 
 		var date = new Date();
 
-		date.setFullYear(datePart[0]);
-		date.setMonth(+datePart[1] - 1);
 		date.setDate(datePart[2]);
+		date.setMonth(+datePart[1] - 1);
+		date.setFullYear(datePart[0]);
 
 		date.setHours(timePart[0]);
 		date.setMinutes(timePart[1]);
