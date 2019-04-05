@@ -5,17 +5,8 @@ function calcDate(structuredDate) {
 	try {
 		var splitDate = structuredDate.split('T'),
 	    datePart = splitDate[0].split('-'),
-	    timePart = splitDate[1].replace('+05:30', '').split(':');
-
-		var date = new Date();
-
-		date.setFullYear(datePart[0]);
-		date.setMonth(+datePart[1] - 1);
-		date.setDate(datePart[2]);
-
-		date.setHours(timePart[0]);
-		date.setMinutes(timePart[1]);
-		date.setSeconds(timePart[2]);
+	    timePart = splitDate[1].replace('+05:30', '').split(':');			
+		var date = new Date(structuredDate);
 
 		return date;
 	}
