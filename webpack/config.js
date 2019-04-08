@@ -6,5 +6,6 @@ module.exports = {
         library: 'Samay',
         libraryTarget: 'umd',
         filename: 'samay.js',
+        globalObject: "(typeof self !== 'undefined' ? self : this)"
     }    
 }
