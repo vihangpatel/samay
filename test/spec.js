@@ -89,4 +89,52 @@ describe('samay.js test suite', function(){
 		expect(samay('201810151315', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('10/15/2018 1:15 PM')
 	});
 
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23-Jul-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23-July-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('July-23, 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019-July-23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019-July-23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul-23-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23 Jul 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23 July 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('July 23, 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019 July 23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019 July 23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul 23 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
 });

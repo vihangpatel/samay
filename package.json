@@ -5,7 +5,9 @@
   "main": "./dist/samay.js",
   "scripts": {
     "test": "sh test/testscript.sh",
-    "build": "webpack --config webpack/config.js"
+    "build": "webpack --config webpack/config.js",
+    "serve-demo" : "python -m SimpleHTTPServer 9099",
+    "test-serve": "nodemon --watch dist --watch demo --exec npm run serve-demo"
   },
   "pre-commit": [
     "test"
