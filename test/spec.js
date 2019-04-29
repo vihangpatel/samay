@@ -1,6 +1,6 @@
 describe('samay.js test suite', function(){
 
-	var samay = require('../samay').samay;
+	var samay = require('../dist/samay').samay;
 
 	it('constructor with no arguments', function() {
 		expect(+samay().originalDate === +(new Date)).toBe(true)
@@ -69,7 +69,7 @@ describe('samay.js test suite', function(){
 		expect(samay('201701011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('01/01/2017 13:45 Sun')
 	});
 
-	it('1st feb 2017', function() {
+	it('1st feb 2017', function() {		 
 		expect(samay('201702011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('02/01/2017 13:45 Wed')
 	});
 

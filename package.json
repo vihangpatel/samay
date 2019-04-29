@@ -6,8 +6,11 @@
   "scripts": {
     "test": "sh test/testscript.sh",
     "build": "webpack --config webpack/config.js",
-    "serve-demo" : "python -m SimpleHTTPServer 9099",
+    "serve-demo": "python -m SimpleHTTPServer 9099",
+    "serve-node-demo": "node demo/server-index.js",
+    "test-node-serve": "nodemon --watch dist --watch demo --exec npm run serve-node-demo",
     "test-serve": "nodemon --watch dist --watch demo --exec npm run serve-demo"
+    
   },
   "pre-commit": [
     "test"
@@ -34,7 +37,7 @@
     "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.4.0",
-    "jasmine": "2.5.3",
+    "jasmine": "3.4.0",
     "pre-commit": "1.2.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
