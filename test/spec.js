@@ -3,7 +3,9 @@ describe('samay.js test suite', function(){
 	var samay = require('../dist/samay').samay;
 
 	it('constructor with no arguments', function() {
-		expect(+samay().originalDate === +(new Date)).toBe(true)
+		var time1 = +samay().originalDate
+		var time2 = +(new Date)
+		expect( time1 === time2).toBe(true)
 	});
 
 	it('constructor with current date object timing', function() {
@@ -69,7 +71,7 @@ describe('samay.js test suite', function(){
 		expect(samay('201701011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('01/01/2017 13:45 Sun')
 	});
 
-	it('1st feb 2017', function() {		 
+	it('1st feb 2017', function() {
 		expect(samay('201702011345', 'YYYYMMDDHHmm').format('MM/DD/YYYY HH:mm ddd')).toBe('02/01/2017 13:45 Wed')
 	});
 
@@ -134,7 +136,22 @@ describe('samay.js test suite', function(){
 	});
 
 	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul 23 2019 11:59', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 11:59 AM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
 		expect(samay('Jul 23 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
 	});
 
+	it('previous day of new year', function() {
+		expect(samay('202001011159', 'YYYYMMDDHHmm').subtract(1,'days').format('MM/DD/YYYY h:mm A')).toBe('12/31/2019 11:59 AM')
+	});
+
+	it('next day of year end', function() {
+		expect(samay('201912312359', 'YYYYMMDDHHmm').add(1,'days').format('MM/DD/YYYY h:mm A')).toBe('01/01/2020 11:59 PM')
+	});
+
+	it('add seconds for 29th feb', function() {
+		expect(samay('202002292359', 'YYYYMMDDHHmm').add(120,'seconds').format('MM/DD/YYYY h:mm A')).toBe('03/01/2020 12:01 AM')
+	});
 });
