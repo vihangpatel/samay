@@ -1,13 +1,74 @@
 <html>
     <head>
+            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" >
         <script type="text/javascript" src="../dist/samay.js"></script>
-        <script type="text/javascript">
-            var p = window.Samay.samay;
-            console.log(p("20190228","YYYYMMDD").add(1.23432,'days').format("DD/MM/YYYY, ddd, MMM HH:mm"))
-        </script>
     </head>
         
     <body>
-        Test  Site     
+        <table style="width:100%;border:1px solid black;text-align: center;">
+            <thead>
+                <tr>
+                    <th>Time String</th>
+                    <th>Scan String Format</th>
+                    <th>Target String Format</th>
+                    <th>Output</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>     
     </body>
+    <script type="text/javascript">
+        var p = window.Samay.samay;
+        var tbody = document.querySelector('tbody')
+        
+
+        function testItem(timeString, timeFormat, outputFormat) {
+            let op = p(timeString, timeFormat).format(outputFormat)                
+            tbody.innerHTML += `<tr>
+                    <td>${timeString}</td>
+                    <td>${timeFormat}</td>
+                    <td>${outputFormat}</td>
+                    <td>${op}</td>
+                </tr>`
+        }
+
+        testItem("23-Jul-2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("23-July-2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("July-23, 2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("2019-July-23, 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("2019-July-23, 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("Jul-23 2019, 15:41","random","DD MM YYYY ddd HH:mm")
+
+        testItem("23 Jul 2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("23 July 2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("July 23, 2019 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("2019 July 23, 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("2019 July 23, 15:41","random","DD MM YYYY ddd HH:mm")
+        testItem("Jul 23 2019, 15:41","random","DD MM YYYY ddd HH:mm")
+
+        testItem('20180228', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20190228', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20200229', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20190301', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20190330', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20180401', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20190401', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+        testItem('20180330', 'YYYYMMDD','MM/DD/YYYY HH:mm')
+
+        testItem('201701011345', 'YYYYMMDDHHmm','MM/DD/YYYY HH:mm ddd MMM')
+        testItem('201702011345', 'YYYYMMDDHHmm','MM/DD/YYYY HH:mm ddd MMM')
+
+        testItem('2017-07-31 15:31:08', 'YYYY-MM-DD HH:mm:ss','MM/DD/YYYY HH:mm')
+        testItem('201810150000', 'YYYYMMDDHHmm','MM/DD/YYYY h:mm A')
+        testItem('201810151315', 'YYYYMMDDHHmm','MM/DD/YYYY h:mm A')
+
+        testItem('201905310000', 'YYYYMMDDHHmm','MM/DD/YYYY h:mm A')
+        testItem('201904300000', 'YYYYMMDDHHmm','MM/DD/YYYY h:mm A')
+    </script>
+
+    <style type="text/css">
+
+    </style>
 </html>

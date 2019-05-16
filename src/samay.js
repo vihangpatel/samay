@@ -6,9 +6,9 @@ function calcDate(structuredDate) {
 		var splitDate = structuredDate.split('T'),
 	    datePart = splitDate[0].split('-'),
 	    timePart = splitDate[1].replace('+05:30', '').split(':');			
-		var date = new Date(structuredDate);
-
-		return date;
+			var date = new Date(datePart[0], +datePart[1] - 1, datePart[2], timePart[0], timePart[1], timePart[2]);
+	
+			return date;
 	}
 	catch(e) {
 
@@ -314,9 +314,9 @@ function samay(inputDate, scanFormat) {
 			nativeDate = calcDate(structuredDate);
 		this.inputDate = new Date(nativeDate);
 
-	} else if(inputDate && !fnCallMap[scanFormat]) {
+	} else if(typeof inputDate === "string" && !fnCallMap[scanFormat]) {
 
-		this.inputDate = new Date(inputDate)
+		this.inputDate = new Date(inputDate.replace(/\-/g,' '))
 
 	} else if (!inputDate) {
 

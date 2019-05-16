@@ -1,9 +1,11 @@
 describe('samay.js test suite', function(){
 
-	var samay = require('../samay').samay;
+	var samay = require('../dist/samay').samay;
 
 	it('constructor with no arguments', function() {
-		expect(+samay().originalDate === +(new Date)).toBe(true)
+		var time1 = +samay().originalDate
+		var time2 = +(new Date)
+		expect( time1 === time2).toBe(true)
 	});
 
 	it('constructor with current date object timing', function() {
@@ -89,4 +91,67 @@ describe('samay.js test suite', function(){
 		expect(samay('201810151315', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('10/15/2018 1:15 PM')
 	});
 
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23-Jul-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23-July-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('July-23, 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019-July-23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019-July-23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-with-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul-23-2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23 Jul 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('23 July 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('July 23, 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019 July 23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('2019 July 23 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul 23 2019 11:59', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 11:59 AM')
+	});
+
+	it('no-format-no-hyphen test against format MM/DD/YYYY h:mm A ', function() {
+		expect(samay('Jul 23 2019 15:41', 'YYYYMMDDHHmm').format('MM/DD/YYYY h:mm A')).toBe('07/23/2019 3:41 PM')
+	});
+
+	it('previous day of new year', function() {
+		expect(samay('202001011159', 'YYYYMMDDHHmm').subtract(1,'days').format('MM/DD/YYYY h:mm A')).toBe('12/31/2019 11:59 AM')
+	});
+
+	it('next day of year end', function() {
+		expect(samay('201912312359', 'YYYYMMDDHHmm').add(1,'days').format('MM/DD/YYYY h:mm A')).toBe('01/01/2020 11:59 PM')
+	});
+
+	it('add seconds for 29th feb', function() {
+		expect(samay('202002292359', 'YYYYMMDDHHmm').add(120,'seconds').format('MM/DD/YYYY h:mm A')).toBe('03/01/2020 12:01 AM')
+	});
 });

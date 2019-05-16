@@ -2,6 +2,7 @@ const webpack = require('webpack')
 
 module.exports = {
     entry: './src/index.js',
+    mode: 'production',
     output : {
         library: 'Samay',
         libraryTarget: 'umd',
