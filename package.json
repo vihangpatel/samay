@@ -1,6 +1,6 @@
 {
   "name": "bmssamay",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "main": "./dist/samay.js",
   "scripts": {
@@ -26,12 +26,14 @@
     "validate"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.1",
-    "@babel/plugin-transform-runtime": "^7.4.3",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.4.0",
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/plugin-transform-template-literals": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/register": "^7.7.4",
+    "babel-loader": "^8.0.6",
     "jasmine": "2.5.3",
     "pre-commit": "1.2.2",
     "webpack": "^4.29.6",
